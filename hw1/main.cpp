@@ -28,9 +28,16 @@ int main() {
 }
 
 bool isPal(string str) {
-    string reStr(str);
-    reverse(reStr.begin(), reStr.end());
-    return reStr == str;
+    if (str == string("") || str.length() == 1) {
+        return true;
+    }
+    if (str[0] != str[str.length() - 1]) {
+        return false;
+    } else {
+        return isPal(str.substr(1, str.length() - 2));
+    }
+
+
 }
 
 bool isPalindrome(string str, int reduceCount) {
