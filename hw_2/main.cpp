@@ -28,9 +28,9 @@
 
 using namespace std;
 
-class fixStr {
+class FixStr {
 public:
-    fixStr() : infixStr(), cntRight(0), cntLeft(0), curChar(' ') {
+    FixStr() : infixStr(), cntRight(0), cntLeft(0), curChar(' ') {
 
     }
 
@@ -53,19 +53,21 @@ private:
     bool isSym(char);
 };
 
-bool fixStr::isNum(char num) {
+bool FixStr::isNum(char num) {
     return num >= '0' && num <= '9';
 }
 
-bool fixStr::isSym(char sym) {
+bool FixStr::isSym(char sym) {
     return sym == '+' || sym == '-' || sym == '*' || sym == '/';
 }
 
-bool fixStr::check(char nextChar) {
+bool FixStr::check(char nextChar) {
     if (nextChar == ')' && cntLeft <= cntRight) {
         return false;
     }
     switch (curChar) {
+        case ' ':
+            return true;
         case '+':
         case '-':
         case '*':
@@ -81,7 +83,7 @@ bool fixStr::check(char nextChar) {
 
 }
 
-void fixStr::push_back(char nextChar) {
+void FixStr::push_back(char nextChar) {
     if (check(nextChar)) {
         if (nextChar == '(') {
             cntLeft++;
@@ -95,7 +97,7 @@ void fixStr::push_back(char nextChar) {
     }
 }
 
-void fixStr::pop() {
+void FixStr::pop() {
     if (curChar == '(') {
         cntLeft--;
     } else if (curChar == ')') {
@@ -105,12 +107,23 @@ void fixStr::pop() {
     curChar = *(infixStr.end() - 1);
 }
 
-vector<char> fixStr::inFix2PostFix() {
+vector<char> FixStr::inFix2PostFix() {
     return infixStr;
 }
 
 int main() {
-
+    FixStr myStr;
+    myStr.push_back('(');
+    myStr.push_back('1');
+    myStr.push_back('+');
+    myStr.push_back('(');
+    myStr.push_back('3');
+    myStr.push_back('*');
+    myStr.push_back('5');
+    myStr.push_back(')');
+    myStr.push_back(')');
+    myStr.push_back('-');
+    myStr.push_back('2');
     return 0;
 }
 /*
