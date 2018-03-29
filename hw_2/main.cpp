@@ -111,6 +111,49 @@ vector<char> FixStr::inFix2PostFix() {
     return infixStr;
 }
 
+///ssssssssssssssssssssssssssssssssssssssssss
+char board[105][105];
+int vis[105][105];
+char table[20] = {
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        '+', '-', '*', '/', '(', ')'
+};
+int dx[4] = {1, 0, -1, 0};
+int dy[4] = {0, 1, 0, -1};
+int numOfCase;
+int M, N;
+
+struct Node {
+    Node(int x0, int y0) : x(x0), y(y0) {}
+
+    int x, y;
+};
+
+queue<Node> queueX;
+
+void bfs() {
+    queueX.push(Node(0, 0));
+    while (!queueX.empty()) {
+        Node curNode = queueX.front();
+        queueX.pop();
+
+    }
+}
+
+int main() {
+    cin >> numOfCase;
+    for (int cntCase = 0; cntCase < numOfCase; cntCase++) {
+        cin >> M >> N;
+        for (int i = 0; i < M; ++i) {
+            for (int j = 0; j < N; ++j) {
+                cin >> board[i][j];
+            }
+        }
+    }
+
+}
+/*
+
 int main() {
     FixStr myStr;
     myStr.push_back('(');
@@ -126,29 +169,4 @@ int main() {
     myStr.push_back('2');
     return 0;
 }
-/*
-
-char board[105][105];
-
-char table[20] = {
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '+', '-', '*', '/', '(', ')'
-};
-int dx[4] = {1, 0, -1, 0};
-int dy[4] = {0, 1, 0, -1};
-int numOfCase;
-int M, N;
-
-
-int main() {
-    cin >> numOfCase;
-    for (int cntCase = 0; cntCase < numOfCase; cntCase++) {
-        cin >> M >> N;
-        for (int i = 0; i < M; ++i) {
-            for (int j = 0; j < N; ++j) {
-                cin >> board[i][j];
-            }
-        }
-    }
-
-}*/
+*/
