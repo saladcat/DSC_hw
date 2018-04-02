@@ -114,29 +114,22 @@ vector<char> FixStr::inFix2PostFix() {
 ///ssssssssssssssssssssssssssssssssssssssssss
 char board[105][105];
 int vis[105][105];
-char table[20] = {
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        '+', '-', '*', '/', '(', ')'
-};
 int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
 int numOfCase;
 int M, N;
+int curX;
+int curY;
+FixStr myStr;
 
-struct Node {
-    Node(int x0, int y0) : x(x0), y(y0) {}
-
-    int x, y;
-};
-
-queue<Node> queueX;
-
-void bfs() {
-    queueX.push(Node(0, 0));
-    while (!queueX.empty()) {
-        Node curNode = queueX.front();
-        queueX.pop();
-
+void dfs(int x, int y) {
+    if (myStr.check(board[x][y])) {
+        myStr.push_back(board[x][y]);
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; j++) {
+                dfs(x + dx[i], y + dy[i]);
+            }
+        }
     }
 }
 
@@ -152,21 +145,3 @@ int main() {
     }
 
 }
-/*
-
-int main() {
-    FixStr myStr;
-    myStr.push_back('(');
-    myStr.push_back('1');
-    myStr.push_back('+');
-    myStr.push_back('(');
-    myStr.push_back('3');
-    myStr.push_back('*');
-    myStr.push_back('5');
-    myStr.push_back(')');
-    myStr.push_back(')');
-    myStr.push_back('-');
-    myStr.push_back('2');
-    return 0;
-}
-*/
