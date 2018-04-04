@@ -25,6 +25,8 @@
 #include <algorithm>
 #include <queue>
 #include <stack>
+#include <fstream>
+#include <cstring>
 
 using namespace std;
 
@@ -34,13 +36,18 @@ public:
 
     }
 
+    bool isEmpty();
+
     void push_back(char nextChar);
 
     void pop();
 
     bool check(char nextChar);
 
+    void prt();
+
     vector<char> inFix2PostFix();
+
 
 private:
     vector<char> infixStr;
@@ -51,6 +58,8 @@ private:
     bool isNum(char);
 
     bool isSym(char);
+
+    bool isLess(char lChar, char rChar);
 };
 
 bool FixStr::isNum(char num) {
@@ -62,6 +71,7 @@ bool FixStr::isSym(char sym) {
 }
 
 bool FixStr::check(char nextChar) {
+    //cntLeft是左括号的数量，cntRight是右括号的数量
     if (nextChar == ')' && cntLeft <= cntRight) {
         return false;
     }
@@ -80,21 +90,16 @@ bool FixStr::check(char nextChar) {
         default:// is number
             return isNum(nextChar) || isSym(nextChar) || nextChar == ')';
     }
-
 }
 
 void FixStr::push_back(char nextChar) {
-    if (check(nextChar)) {
-        if (nextChar == '(') {
-            cntLeft++;
-        } else if (nextChar == ')') {
-            cntRight++;
-        }
-        curChar = nextChar;
-        infixStr.push_back(nextChar);
-    } else {
-        throw ("without check to push_back");
+    if (nextChar == '(') {
+        cntLeft++;
+    } else if (nextChar == ')') {
+        cntRight++;
     }
+    curChar = nextChar;
+    infixStr.push_back(nextChar);
 }
 
 void FixStr::pop() {
@@ -107,41 +112,117 @@ void FixStr::pop() {
     curChar = *(infixStr.end() - 1);
 }
 
-vector<char> FixStr::inFix2PostFix() {
-    return infixStr;
+
+void FixStr::prt() {
+    for (auto &item:infixStr) {
+        cout << item << " ";
+    }
+    cout << endl;
 }
 
-///ssssssssssssssssssssssssssssssssssssssssss
+bool FixStr::isEmpty() {
+    return infixStr.empty();
+}
+
+vector<char> FixStr::inFix2PostFix() {
+    vector<char> output;
+    stack<char> symStack;
+    for (auto item:infixStr) {
+        if (isNum(item)) {
+            output.push_back(item);
+        } else if (isSym(item)) {
+            while (!(symStack.empty() || isLess(symStack.top(), item))) {
+                output.push_back(symStack.top());
+                symStack.pop();
+            }
+            symStack.push(item);
+        } else {
+            if (item == ')') {
+                while (!symStack.empty()) {
+                    if (symStack.top() != '(') {
+                        output.push_back(symStack.top());
+                        symStack.pop();
+                    } else {
+                        symStack.pop();
+                        break;
+                    }
+                }
+            } else if (item == '(') {
+                symStack.push(item);
+            }
+        }
+    }
+    while (!symStack.empty()) {
+        if (symStack.top() != '(') {
+            output.push_back(symStack.top());
+        }
+        symStack.pop();
+    }
+
+    for (auto &item:output) {
+        cout << item << " ";
+    }
+    cout << endl;
+    return output;
+}
+
+bool FixStr::isLess(char lChar, char rChar) {
+    return (lChar == '+' || lChar == '-') ||
+           ((lChar == '*' || lChar == '/') && (rChar == '*' || rChar == '/')) ||
+           lChar == '(';
+}
+
 char board[105][105];
 int vis[105][105];
 int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
 int numOfCase;
 int M, N;
-int curX;
-int curY;
+bool isFindIt;
 FixStr myStr;
 
 void dfs(int x, int y) {
-    if (myStr.check(board[x][y])) {
+    if (!isFindIt && vis[x][y] == 0 && myStr.check(board[x][y])) {
         myStr.push_back(board[x][y]);
+        vis[x][y] = 1;
+        if (x == M - 1 && y == N - 1) {
+            isFindIt = true;
+            cout << "Yes" << endl;
+            myStr.prt();
+            myStr.inFix2PostFix();
+            return;
+        }
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; j++) {
                 dfs(x + dx[i], y + dy[i]);
             }
         }
+        vis[x][y] = 0;
+        myStr.pop();
     }
 }
 
 int main() {
-    cin >> numOfCase;
+    fstream is("data.dat");
+    is >> numOfCase;
+    cout << numOfCase << endl;
     for (int cntCase = 0; cntCase < numOfCase; cntCase++) {
-        cin >> M >> N;
+        is >> M >> N;
+        cout << M << "\n" << N << endl;
+        memset(board, 0, sizeof(board));
+        memset(vis, 0, sizeof(vis));
+        isFindIt = false;
+        if (!myStr.isEmpty()) {
+            myStr.pop();
+        }
         for (int i = 0; i < M; ++i) {
             for (int j = 0; j < N; ++j) {
-                cin >> board[i][j];
+                is >> board[i][j];
+                cout << board[i][j] << " ";
             }
+            cout << endl;
         }
+        dfs(0, 0);
     }
-
+    return 0;
 }

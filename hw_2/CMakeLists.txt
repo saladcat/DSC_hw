@@ -3,4 +3,4 @@ project(hw_2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(hw_2 main.cpp)
+add_executable(hw_2 test.cpp)
