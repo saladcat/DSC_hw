@@ -10,6 +10,7 @@
 #include <vector>
 #include <queue>
 #include <fstream>
+#include <stack>
 
 
 using namespace std;
@@ -32,28 +33,28 @@ bool isAcc(char word) {
 
 void dfs(int curX, int curY, int nxtX, int nxtY);
 
-int prec(char word);
+int prec(string word);
 
 bool checkWord(char preWord, char nextWord);
 
-string infix2postfix(vector<char> infixVector);
+vector<string> infix2postfix(vector<string> infixVector);
 
-vector<vector<char> > numberGen(vector<char> input);
+vector<string> numberGen(vector<char> input);
 
-vector<char> infixString;
+vector<char> infixVector;
 int cntLeft;
 int cntRight;
 bool isReach;
 int ROWS, COLS;
 char board[105][105];
 int vis[105][105];
-int dx[4] = {1, 0, -1, 0};
-int dy[4] = {0, 1, 0, -1};
+int dx[4] = {1, 0, 0, -1};
+int dy[4] = {0, 1, -1, 0};
 int numOfCase;
 
 int main() {
-    fstream inputStream("data.dat");
-    inputStream >> numOfCase;
+//    fstream inputStream("data.dat");
+    cin >> numOfCase;
     cout << numOfCase << endl;
     for (int cntCase = 0; cntCase < numOfCase; cntCase++) {
         memset(vis, 0, sizeof(vis));
@@ -61,37 +62,48 @@ int main() {
         cntLeft = 0;
         cntRight = 0;
         isReach = false;
-        while (!infixString.empty()) {
-            infixString.pop_back();
+        while (!infixVector.empty()) {
+            infixVector.pop_back();
         }
-        inputStream >> COLS >> ROWS;
+        cin >> COLS >> ROWS;
         cout << COLS << '\n' << ROWS << endl;
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
-                inputStream >> board[i][j];
+                cin >> board[i][j];
                 cout << board[i][j] << ' ';
             }
             cout << endl;
         }
         dfs(0, 0, 0, 0);
         if (isReach) {
-            auto chec = numberGen(infixString);
-            for (const auto &item:chec) {
+            cout << "Yes" << endl;
+            auto infixString = numberGen(infixVector);
+            for (const auto &item:infixString) {
                 for (const auto &item1:item) {
                     cout << item1;
                 }
                 cout << ' ';//可能最后不需要输出空 todo
             }
             cout << endl;
+            auto postFixString = infix2postfix(infixString);
+            for (const auto &item:postFixString) {
+                for (const auto &item1:item) {
+                    cout << item1;
+                }
+                cout << ' ';//可能最后不需要输出空 todo
+            }
+            cout << endl;
+        } else {
+            cout << "No" << endl;
         }
     }
     return 0;
 }
 
-vector<vector<char> > numberGen(vector<char> input) {
-    vector<vector<char>> res;
+vector<string> numberGen(vector<char> input) {
+    vector<string> res;
     int length = input.size();
-    vector<char> tem;
+    string tem;
     char curChar = input[0];
     tem.push_back(curChar);
     char lastChar = curChar;
@@ -123,7 +135,7 @@ void dfs(int curX, int curY, int nxtX, int nxtY) {
     if (checkWord(board[curX][curY], board[nxtX][nxtY])) {
         cntLeft += board[nxtX][nxtY] == '(' ? 1 : 0;
         cntRight += board[nxtX][nxtY] == ')' ? 1 : 0;
-        infixString.push_back(board[nxtX][nxtY]);
+        infixVector.push_back(board[nxtX][nxtY]);
         vis[nxtX][nxtY] = 1;
         if (nxtX == ROWS - 1 && nxtY == COLS - 1 && cntLeft == cntRight) {
             isReach = true;
@@ -133,7 +145,7 @@ void dfs(int curX, int curY, int nxtX, int nxtY) {
             dfs(nxtX, nxtY, nxtX + dx[i], nxtY + dy[i]);
         }
         if (!isReach) {
-            infixString.pop_back();
+            infixVector.pop_back();
             vis[nxtX][nxtY] = 0;
             cntLeft -= board[nxtX][nxtY] == '(' ? 1 : 0;
             cntRight -= board[nxtX][nxtY] == ')' ? 1 : 0;
@@ -142,18 +154,18 @@ void dfs(int curX, int curY, int nxtX, int nxtY) {
 }
 
 
-
-
 bool checkWord(char preWord, char nextWord) {
+    if (cntLeft < cntRight) {//检测括号
+        return false;
+    }
+    if (nextWord == ')' && cntLeft == cntRight) {
+        return false;
+    }
     if (isNumber(preWord)) {
-        return isNumber(nextWord) || isAcc(nextWord) ||
-               nextWord == ')';
+        return isNumber(nextWord) || isAcc(nextWord) || nextWord == ')';
     }
     if (isAcc(preWord)) {
         return isNumber(nextWord) || nextWord == '(';
-    }
-    if (cntLeft < cntRight) {//检测括号
-        return false;
     }
     if (preWord == '(') {
         return isNumber(nextWord) || nextWord == '(';
@@ -164,10 +176,42 @@ bool checkWord(char preWord, char nextWord) {
     return false;
 }
 
-int prec(char word) {
-    if (isMulDiv(word)) {
+vector<string> infix2postfix(vector<string> infixVector) {
+    vector<string> res;
+    stack<string> signStack;
+    for (const auto &word:infixVector) {
+        if (isNumber(word[0])) {
+            res.push_back(word);
+        } else if (word[0] == '(') {
+            signStack.push(word);
+        } else if (word[0] == ')') {
+            string topWord = signStack.top();
+            signStack.pop();
+            while (topWord[0] != '(') {
+                res.push_back(topWord);
+                topWord = signStack.top();
+                signStack.pop();
+            }
+        } else if (isAcc(word[0])) {
+            while (!(signStack.empty() || prec(signStack.top()) < prec(word))) {//take <= to < and done
+                string topWord = signStack.top();
+                signStack.pop();
+                res.push_back(topWord);
+            }
+            signStack.push(word);
+        }
+    }
+    while (!signStack.empty()) {
+        res.push_back(signStack.top());
+        signStack.pop();
+    }
+    return res;
+}
+
+int prec(string word) {
+    if (isMulDiv(word[0])) {
         return 2;
-    } else if (isAddSub(word)) {
+    } else if (isAddSub(word[0])) {
         return 1;
     } else {
         return 0;

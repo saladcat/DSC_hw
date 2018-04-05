@@ -131,7 +131,7 @@ vector<char> FixStr::inFix2PostFix() {
         if (isNum(item)) {
             output.push_back(item);
         } else if (isSym(item)) {
-            while (!(symStack.empty() || isLess(symStack.top(), item))) {
+            while (!symStack.empty() && !isLess(symStack.top(), item)) {
                 output.push_back(symStack.top());
                 symStack.pop();
             }
