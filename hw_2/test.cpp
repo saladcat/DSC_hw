@@ -193,6 +193,7 @@ vector<string> infix2postfix(vector<string> infixVector) {
                 signStack.pop();
             }
         } else if (isAcc(word[0])) {
+            //直到栈为空或者top小于当前字符
             while (!(signStack.empty() || prec(signStack.top()) < prec(word))) {//take <= to < and done
                 string topWord = signStack.top();
                 signStack.pop();
