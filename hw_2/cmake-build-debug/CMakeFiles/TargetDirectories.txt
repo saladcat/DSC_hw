@@ -1,0 +1,3 @@
+C:/code/DSC_hw/hw_2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/code/DSC_hw/hw_2/cmake-build-debug/CMakeFiles/hw_2.dir
+C:/code/DSC_hw/hw_2/cmake-build-debug/CMakeFiles/edit_cache.dir

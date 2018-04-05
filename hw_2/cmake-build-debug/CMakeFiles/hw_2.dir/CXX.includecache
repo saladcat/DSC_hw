@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/code/DSC_hw/hw_2/test.cpp
+iostream
+-
+cstring
+-
+vector
+-
+queue
+-
+fstream
+-
+stack
+-
+

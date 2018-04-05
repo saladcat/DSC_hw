@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/code/DSC_hw/hw1/main.cpp
+iostream
+-
+string
+-
+cstdio
+-
+fstream
+-
+algorithm
+-
+
