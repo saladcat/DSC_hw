@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <set>
 #include <sstream>
 
 using namespace std;
@@ -45,8 +44,8 @@ void LinkList::reverse() {
     _header->nxt = pre;
 }
 
-LinkList::LinkList() : _header(
-        new Node(-1, "header")) {//change 0 to -1, pass the final case
+LinkList::LinkList() :
+        _header(new Node(-254, "header")) {//change 0 to -1, pass the final case
 
 }
 
@@ -60,7 +59,6 @@ void LinkList::erase(int price) {
     if (cur == nullptr) {
         return; //do nothing
     }
-
     pre->nxt = cur->nxt;
     delete cur;
 }
@@ -86,11 +84,12 @@ ostream &operator<<(ostream &os, const LinkList &linkList) {
 
 void LinkList::insertAfter(string gift, int price, int priceToInsertAfter) {
     Node *newNode = new Node(price, gift);
-    Node *cur = _header;
+    Node *cur = _header->nxt;
     while (cur != nullptr && cur->_price != priceToInsertAfter) {
         cur = cur->nxt;
     }
     if (cur == nullptr) {
+        delete newNode;
         return;//do nothing
     }
     Node *tem = cur->nxt;
@@ -100,7 +99,7 @@ void LinkList::insertAfter(string gift, int price, int priceToInsertAfter) {
 
 void LinkList::insertBack(string gift, int price) {
     Node *newNode = new Node(price, gift);
-    Node *cur = _header;
+    Node *cur = _header->nxt;
     Node *pre = _header;
     while (cur != nullptr) {
         pre = cur;
@@ -110,7 +109,20 @@ void LinkList::insertBack(string gift, int price) {
     newNode->nxt = nullptr;
 }
 
-
+/*
+int main() {
+    LinkList linkList;
+    linkList.insertBack("1", 1);
+    linkList.insertBack("1", 2);
+    linkList.insertBack("1", 3);
+    linkList.insertBack("1", 4);
+    linkList.insertBack("1", 5);
+    cout << linkList << endl;
+    linkList.reverse();
+    cout << linkList << endl;
+    return 0;
+}
+*/
 int main() {
     LinkList linkList;
     string line;
@@ -136,12 +148,12 @@ int main() {
         } else if (line == "Reverse") {
             linkList.reverse();
         } else if (line == "End") {
+            cout << linkList << endl;
             break;
         } else {
 
         }
     }
-    cout << linkList << endl;
     return 0;
 }
 
