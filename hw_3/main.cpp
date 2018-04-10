@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <set>
+#include <sstream>
 
 using namespace std;
 
@@ -17,9 +18,11 @@ class LinkList {
 public:
     LinkList();
 
-    void insert(Node *newNode);
-
     void erase(int price);
+
+    void insertAfter(string gift, int price, int priceToInsertAfter);
+
+    void insertBack(string gift, int price);
 
     void reverse();
 
@@ -30,41 +33,32 @@ private:
 };
 
 void LinkList::reverse() {
-    Node *cur = _header;
+    Node *cur = _header->nxt;
     Node *pre = nullptr;
     Node *nxt = nullptr;
-    while (cur->nxt != nullptr) {
+    while (cur != nullptr) {
         nxt = cur->nxt;
         cur->nxt = pre;
         pre = cur;
         cur = nxt;
     }
+    _header->nxt = pre;
 }
 
-LinkList::LinkList() : _header(new Node(0, "header")) {
+LinkList::LinkList() : _header(
+        new Node(-1, "header")) {//change 0 to -1, pass the final case
 
-}
-
-void LinkList::insert(Node *newNode) {
-    Node *cur = _header;
-    Node *pre = _header;
-    while (cur != nullptr && newNode->_price > cur->_price) {
-        pre = cur;
-        cur = cur->nxt;
-    }
-    pre->nxt = newNode;
-    newNode->nxt = cur;
 }
 
 void LinkList::erase(int price) {
-    Node *cur = _header;
+    Node *cur = _header->nxt;
     Node *pre = _header;
     while (cur != nullptr && cur->_price != price) {
         pre = cur;
         cur = cur->nxt;
     }
     if (cur == nullptr) {
-        throw ("there isn't have the price");
+        return; //do nothing
     }
 
     pre->nxt = cur->nxt;
@@ -74,24 +68,81 @@ void LinkList::erase(int price) {
 ostream &operator<<(ostream &os, const LinkList &linkList) {
     Node *cur = linkList._header->nxt;
     if (cur == nullptr) {
+        cout << "Empty";
         return os;
     }
-    while (cur->nxt != nullptr) {
-        os << cur->_name << ":" << cur->_price << "->";
+    cout << "List" << endl;
+    while (true) {
+        os << '(' << cur->_name << "," << cur->_price << ')';
         cur = cur->nxt;
+        if (cur != nullptr) {
+            os << "->";
+        } else {
+            break;
+        }
     }
-    os << cur->_name << ":" << cur->_price << endl;
     return os;
 }
 
-int main() {
-    LinkList mylinklist;
-    mylinklist.insert(new Node(10, "myname"));
-    mylinklist.insert(new Node(12, "my"));
-    mylinklist.insert(new Node(11, "m"));
-    cout << mylinklist << endl;
-    return 0;
+void LinkList::insertAfter(string gift, int price, int priceToInsertAfter) {
+    Node *newNode = new Node(price, gift);
+    Node *cur = _header;
+    while (cur != nullptr && cur->_price != priceToInsertAfter) {
+        cur = cur->nxt;
+    }
+    if (cur == nullptr) {
+        return;//do nothing
+    }
+    Node *tem = cur->nxt;
+    cur->nxt = newNode;
+    newNode->nxt = tem;
+}
 
+void LinkList::insertBack(string gift, int price) {
+    Node *newNode = new Node(price, gift);
+    Node *cur = _header;
+    Node *pre = _header;
+    while (cur != nullptr) {
+        pre = cur;
+        cur = cur->nxt;
+    }
+    pre->nxt = newNode;
+    newNode->nxt = nullptr;
+}
+
+
+int main() {
+    LinkList linkList;
+    string line;
+    while (getline(cin, line)) {
+        stringstream ss;
+        ss << line;
+        ss >> line;
+        if (line == "InsertBack") {
+            int price;
+            string name;
+            ss >> name >> price;
+            linkList.insertBack(name, price);
+        } else if (line == "InsertAfter") {
+            int insertToAfterPrice;
+            int price;
+            string name;
+            ss >> name >> price >> insertToAfterPrice;
+            linkList.insertAfter(name, price, insertToAfterPrice);
+        } else if (line == "Delete") {
+            int price;
+            ss >> price;
+            linkList.erase(price);
+        } else if (line == "Reverse") {
+            linkList.reverse();
+        } else if (line == "End") {
+            break;
+        } else {
+
+        }
+    }
+    cout << linkList << endl;
+    return 0;
 }
 
 
