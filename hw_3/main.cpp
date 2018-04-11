@@ -27,6 +27,8 @@ public:
 
     friend ostream &operator<<(ostream &os, const LinkList &linkList);
 
+    void prt();
+
 private:
     Node *_header;
 };
@@ -45,16 +47,16 @@ void LinkList::reverse() {
 }
 
 LinkList::LinkList() :
-        _header(new Node(-254, "header")) {//change 0 to -1, pass the final case
+        _header(new Node(-1, "header")) {//change 0 to -1, pass the final case
 
 }
 
 void LinkList::erase(int price) {
     Node *cur = _header->nxt;
     Node *pre = _header;
-    while (cur != nullptr && cur->_price != price) {
-        pre = cur;
-        cur = cur->nxt;
+    while (cur != nullptr && cur->_price != price) {//wtf problem describe that there are no duplicate price
+        pre = cur;                                  //but in many cases, there exist duplicate price
+        cur = cur->nxt;                             //we need to ignore when the price is duplicate
     }
     if (cur == nullptr) {
         return; //do nothing
@@ -85,6 +87,14 @@ ostream &operator<<(ostream &os, const LinkList &linkList) {
 void LinkList::insertAfter(string gift, int price, int priceToInsertAfter) {
     Node *newNode = new Node(price, gift);
     Node *cur = _header->nxt;
+    while (cur != nullptr) {
+        if (cur->_price == price) {
+            delete newNode;
+            return;
+        }
+        cur = cur->nxt;
+    }
+    cur = _header->nxt;
     while (cur != nullptr && cur->_price != priceToInsertAfter) {
         cur = cur->nxt;
     }
@@ -103,23 +113,52 @@ void LinkList::insertBack(string gift, int price) {
     Node *pre = _header;
     while (cur != nullptr) {
         pre = cur;
+        if (cur->_price == price) {
+            delete newNode;
+            return;
+        }
         cur = cur->nxt;
     }
     pre->nxt = newNode;
     newNode->nxt = nullptr;
 }
 
+void LinkList::prt() {
+    Node *cur = _header->nxt;
+    if (cur == nullptr) {
+        cout << "Empty" << endl;
+        return;
+    }
+    while (cur != nullptr) {
+        cout << "List" << endl;
+        while (true) {
+            cout << '(' << cur->_name << "," << cur->_price << ')';
+            cur = cur->nxt;
+            if (cur != nullptr) {
+                cout << "->";
+            } else {
+                cout << endl;
+                return;
+            }
+        }
+
+    }
+}
+
 /*
 int main() {
     LinkList linkList;
-    linkList.insertBack("1", 1);
-    linkList.insertBack("1", 2);
-    linkList.insertBack("1", 3);
-    linkList.insertBack("1", 4);
-    linkList.insertBack("1", 5);
-    cout << linkList << endl;
     linkList.reverse();
     cout << linkList << endl;
+    linkList.insertBack("1", -1);
+    cout << linkList << endl;
+    linkList.insertBack("2", 2);
+    linkList.reverse();
+    cout << linkList << endl;
+    linkList.erase(-1);
+    linkList.erase(-1);
+    linkList.insertAfter("2", 3, -1);
+    cout << linkList;
     return 0;
 }
 */
@@ -148,7 +187,7 @@ int main() {
         } else if (line == "Reverse") {
             linkList.reverse();
         } else if (line == "End") {
-            cout << linkList << endl;
+            linkList.prt();
             break;
         } else {
 
