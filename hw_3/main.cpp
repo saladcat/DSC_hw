@@ -54,7 +54,8 @@ LinkList::LinkList() :
 void LinkList::erase(int price) {
     Node *cur = _header->nxt;
     Node *pre = _header;
-    while (cur != nullptr && cur->_price != price) {//wtf problem describe that there are no duplicate price
+    while (cur != nullptr &&
+           cur->_price != price) {//wtf problem describe that there are no duplicate price
         pre = cur;                                  //but in many cases, there exist duplicate price
         cur = cur->nxt;                             //we need to ignore when the price is duplicate
     }
@@ -145,23 +146,6 @@ void LinkList::prt() {
     }
 }
 
-/*
-int main() {
-    LinkList linkList;
-    linkList.reverse();
-    cout << linkList << endl;
-    linkList.insertBack("1", -1);
-    cout << linkList << endl;
-    linkList.insertBack("2", 2);
-    linkList.reverse();
-    cout << linkList << endl;
-    linkList.erase(-1);
-    linkList.erase(-1);
-    linkList.insertAfter("2", 3, -1);
-    cout << linkList;
-    return 0;
-}
-*/
 int main() {
     LinkList linkList;
     string line;
