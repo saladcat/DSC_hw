@@ -128,9 +128,9 @@ vector<char> FixStr::inFix2PostFix() {
     vector<char> output;
     stack<char> symStack;
     for (auto item:infixStr) {
-        if (isNum(item)) {
+        if (isNum(item)) {// if is number, then output
             output.push_back(item);
-        } else if (isSym(item)) {
+        } else if (isSym(item)) {// if is symbol,then pop_and_output symStack until top is
             while (!symStack.empty() && !isLess(symStack.top(), item)) {
                 output.push_back(symStack.top());
                 symStack.pop();

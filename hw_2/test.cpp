@@ -180,11 +180,12 @@ vector<string> infix2postfix(vector<string> infixVector) {
     vector<string> res;
     stack<string> signStack;
     for (const auto &word:infixVector) {
-        if (isNumber(word[0])) {
+        if (isNumber(word[0])) {// if is number, then output
             res.push_back(word);
-        } else if (word[0] == '(') {
+        } else if (word[0] == '(') {// if it's (, then push signStack
             signStack.push(word);
-        } else if (word[0] == ')') {
+        } else if (word[0] ==
+                   ')') {// if it's ),then pop_and_output until pop'(' which would be output
             string topWord = signStack.top();
             signStack.pop();
             while (topWord[0] != '(') {
@@ -193,8 +194,9 @@ vector<string> infix2postfix(vector<string> infixVector) {
                 signStack.pop();
             }
         } else if (isAcc(word[0])) {
-            //直到栈为空或者top小于当前字符
-            while (!(signStack.empty() || prec(signStack.top()) < prec(word))) {//take <= to < and done
+            //until stack is empty or stack_top's precedence is less than curWord's
+            while (!(signStack.empty() ||
+                     prec(signStack.top()) < prec(word))) {//take place <= by < and done
                 string topWord = signStack.top();
                 signStack.pop();
                 res.push_back(topWord);
