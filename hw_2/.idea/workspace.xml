@@ -12,16 +12,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e3e1a92-5e8b-411c-844e-48149f6a63fd" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../hw_3/.idea/markdown-navigator/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw_5/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw_6/.idea/dictionaries/zhu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw_6/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw_6/test.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/hw_2.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/hw_2.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/hw_2.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/hw_2.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/hw_3.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/hw_3.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/hw_3.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_3/cmake-build-debug/CMakeFiles/hw_3.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_3/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_3/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw_5/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../hw_5/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +44,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4843">
-              <caret line="167" selection-start-line="167" selection-end-line="167" />
+            <state relative-caret-position="29">
+              <caret line="140" column="14" selection-start-line="140" selection-start-column="14" selection-end-line="140" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -49,8 +53,11 @@
       <file leaf-file-name="test.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="176" column="1" selection-start-line="176" selection-start-column="1" selection-end-line="176" selection-end-column="1" />
+            <state relative-caret-position="1784">
+              <caret line="216" column="25" lean-forward="true" selection-start-line="216" selection-start-column="25" selection-end-line="216" selection-end-column="25" />
+              <folding>
+                <element signature="e#75#94#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -241,6 +248,10 @@
       <workItem from="1525167159305" duration="1753000" />
       <workItem from="1525400599589" duration="52000" />
       <workItem from="1525428159017" duration="16000" />
+      <workItem from="1527672912090" duration="85000" />
+      <workItem from="1527673006604" duration="492000" />
+      <workItem from="1527677751564" duration="757000" />
+      <workItem from="1527700658742" duration="1403000" />
     </task>
     <task id="LOCAL-00001" summary="init hw2">
       <created>1522291093877</created>
@@ -302,7 +313,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49239000" />
+    <option name="totallyTimeSpent" value="51976000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="63" y="-9" width="1866" height="1098" extended-state="6" />
@@ -314,17 +325,17 @@
       <window_info anchor="bottom" id="CMake" order="7" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.24674022" />
       <window_info anchor="right" id="Version Control" order="5" side_tool="true" weight="0.13244228" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49939248" weight="0.1454363" />
       <window_info id="Structure" order="1" sideWeight="0.52756655" side_tool="true" weight="0.11382114" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" sideWeight="0.510514" side_tool="true" weight="0.13472486" />
+      <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.50060755" weight="0.3229689" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49939248" weight="0.1454363" />
       <window_info anchor="right" id="Data View" order="4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Inspection Results" order="10" weight="0.32998997" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.50060755" weight="0.3229689" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.22567703" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -777,15 +788,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4843">
-          <caret line="167" selection-start-line="167" selection-end-line="167" />
+        <state relative-caret-position="29">
+          <caret line="140" column="14" selection-start-line="140" selection-start-column="14" selection-end-line="140" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="176" column="1" selection-start-line="176" selection-start-column="1" selection-end-line="176" selection-end-column="1" />
+        <state relative-caret-position="1784">
+          <caret line="216" column="25" lean-forward="true" selection-start-line="216" selection-start-column="25" selection-end-line="216" selection-end-column="25" />
+          <folding>
+            <element signature="e#75#94#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

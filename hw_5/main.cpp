@@ -1,74 +1,95 @@
-// C Program for Floyd Warshall Algorithm
+
+// similar with HDOJ 1385 floyd-warshell
 #include <cstdio>
 #include <iostream>
 #include <cstring>
 
-#define INF 99999
+
+const int INF = 0x3f3f3f3f;
 using namespace std;
 int dist[105][105];
 int graph[105][105];
-int passNode[105][105] = {};
-int cntVectrix;
+int nxtVectrix[105][105];// nxtVectrix[i][j] from i to j the next vectrix is
+int numVectrix;
 
-void getPath(int i, int j) {
-    if (i == j) { return; }
-    if (passNode[i][j] == -1) { printf("->%d", j); }
-    else {
-        getPath(i, passNode[i][j]);
-        getPath(passNode[i][j], j);
+void prtPath(int i, int j) {
+    if (nxtVectrix[i][j] == -1) {
+        return;
     }
-
+    printf("Path(%d,%d):", i, j);
+    cout << i;
+    while (i != j) {
+        i = nxtVectrix[i][j];
+        cout << "->" << i;
+    }
+    cout << endl;
 }
 
-void floydWarshall() {
-    int i, j, k;
-    for (i = 0; i < cntVectrix; i++) {
-        for (j = 0; j < cntVectrix; j++) {
-            if (graph[i][j] == 0 && i != j) {
+int main() {
+    cin >> numVectrix;
+    for (int i = 0; i < numVectrix; i++) {
+        for (int j = 0; j < numVectrix; j++) {
+            cin >> graph[i][j];
+        }
+    }
+    for (int i = 0; i < numVectrix; i++) {
+        for (int j = 0; j < numVectrix; ++j) {
+            if (graph[i][j] == 0) {
                 dist[i][j] = INF;
+                nxtVectrix[i][j] = -1;
             } else {
                 dist[i][j] = graph[i][j];
+                nxtVectrix[i][j] = j;
             }
         }
     }
 
-    for (k = 0; k < cntVectrix; k++) {
-        for (i = 0; i < cntVectrix; i++) {
-            for (j = 0; j < cntVectrix; j++) {
+    for (int k = 0; k < numVectrix; k++) {
+        for (int i = 0; i < numVectrix; ++i) {
+            for (int j = 0; j < numVectrix; ++j) {
                 if (dist[i][k] + dist[k][j] < dist[i][j]) {
                     dist[i][j] = dist[i][k] + dist[k][j];
-                    passNode[i][j] = k;
+                    nxtVectrix[i][j] = nxtVectrix[i][k];
+                } else if (dist[i][k] + dist[k][j] == dist[i][j] && nxtVectrix[i][k] < nxtVectrix[i][j]) {
+                    nxtVectrix[i][j] = nxtVectrix[i][k];
                 }
             }
         }
     }
-}
-
-int main() {
-    cin >> cntVectrix;
-    memset(passNode, 0xffffffff, sizeof(passNode));
-    for (int i = 0; i < cntVectrix; i++) {
-        for (int j = 0; j < cntVectrix; j++) {
-            cin >> graph[i][j];
-        }
-    }
-    floydWarshall();
-    for (int i = 0; i < cntVectrix; i++) {
-        for (int j = 0; j < cntVectrix; j++) {
-            if (i == j) {
-                continue;
-            }
-            if (dist[i][j] < INF) {
-                cout << "Path(" << i << "," << j << "):";
-                cout << i;
-                getPath(i, j);
-                cout << endl;
+    for (int i = 0; i < numVectrix; ++i) {
+        for (int j = 0; j < numVectrix; ++j) {
+            if (i != j && nxtVectrix[i][j] != -1) {
+                prtPath(i, j);
                 cout << "Cost:" << dist[i][j] << endl;
-
             }
         }
     }
-
-
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
