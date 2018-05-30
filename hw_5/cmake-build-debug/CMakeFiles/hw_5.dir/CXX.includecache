@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/djyt/A26C1E936C1E61F9/code/DSC_hw/hw_5/main.cpp
+cstdio
+-
+iostream
+-
+cstring
+-
+

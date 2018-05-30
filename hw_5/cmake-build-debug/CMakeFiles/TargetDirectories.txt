@@ -1,0 +1,3 @@
+/media/djyt/A26C1E936C1E61F9/code/DSC_hw/hw_5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/djyt/A26C1E936C1E61F9/code/DSC_hw/hw_5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/djyt/A26C1E936C1E61F9/code/DSC_hw/hw_5/cmake-build-debug/CMakeFiles/hw_5.dir
